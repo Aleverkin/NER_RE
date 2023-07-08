@@ -1,0 +1,42 @@
+# .gitignore file
+
+# Ignore CSV files
+*.csv
+
+# Ignore JSON files
+*.json
+
+# Ignore XML files
+*.xml
+
+# Ignore SQL files
+*.sql
+
+# Ignore HDF5 files
+*.h5
+
+# Ignore Pickle files
+*.pkl
+
+# Ignore Excel files
+*.xls
+*.xlsx
+
+# Ignore binary data files
+*.bin
+*.dat
+
+# Ignore text files
+*.txt
+
+# Ignore MATLAB files
+*.mat
+
+# Ignore any data directories
+data/
+
+*.ann
+*.yaml
+
+__pycache__/
+

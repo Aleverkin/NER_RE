@@ -6,16 +6,16 @@ import os
 class BratDoc:
     def __init__(self, data):
         self.txt_data = data # Str
-        self.relations = [] # List[Tuple[str, int, int]]
+        self.rels = [] # List[Tuple[str, int, int]]
         self.ners = [] # List[Tuple[str, int, int]]
 
         self.rel_id_2_idx = dict()
         self.ner_id_2_idx = dict()
 
     def add_relation(self, rel_id, reltype, start_idx, end_idx):
-        rel_idx = len(self.relations)
+        rel_idx = len(self.rels)
         self.rel_id_2_idx[rel_id] = rel_idx
-        self.relations.append((start_idx, end_idx, reltype))
+        self.rels.append((start_idx, end_idx, reltype))
 
     def add_ner(self, ner_id, ner_type, head_l, head_r):
         ner_idx = len(self.ners)
@@ -37,15 +37,15 @@ class BratDoc:
                 ))
 
             for num, idx in self.rel_id_2_idx.items():
-                left_op = self.ner_id_2_idx[self.relations[idx][1]]
-                right_op = self.ner_id_2_idx[self.relations[idx][2]]
+                left_op = self.ner_id_2_idx[self.rels[idx][1]]
+                right_op = self.ner_id_2_idx[self.rels[idx][2]]
                 if '\n' in self.txt_data[self.ners[left_op][1]:self.ners[right_op][2]]:
                     continue
                 ann_out.write("R{}\t{} Arg1:T{} Arg2:T{}\n".format(
                     num,
-                    self.relations[idx][0],
-                    self.relations[idx][1],
-                    self.relations[idx][2],
+                    self.rels[idx][0],
+                    self.rels[idx][1],
+                    self.rels[idx][2],
                 ))
 
 
@@ -116,7 +116,7 @@ def read_file(path, win_file=True):
 
             ner_list.append((ner_id, nertype, start_idx, end_idx))
 
-    ner_list.sort(key=lambda x: x[2])
+    #ner_list.sort(key=lambda x: x[2])
     for (ner_id, nertype, start_idx, end_idx) in ner_list:
         brat_doc.add_ner(ner_id, nertype, start_idx, end_idx)
 
